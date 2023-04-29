@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_todo_list/models/task.dart';
+import 'package:my_todo_list/widgets/add_task_form.dart';
+import 'package:my_todo_list/widgets/task_item.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,7 +30,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var hideText = true;
+  List<Task> tasks = [
+    Task(
+      id: '1',
+      title: 'Mi primera Tarea',
+      date: '29-04-2023',
+    ),
+    Task(
+      id: '2',
+      title: 'Mi segunda Tarea',
+      date: '29-04-2023',
+    ),
+    Task(
+      id: '3',
+      title: 'Mi tercera Tarea',
+      date: '29-04-2023',
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -37,18 +56,14 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: [
-          Column(
-            children: [
-              TextField(
-                obscureText: hideText,
-                autofocus: true,
-              ),
-              ElevatedButton.icon(
-                onPressed: () {},
-                icon: Icon(Icons.add),
-                label: Text('Agregar'),
-              ),
-            ],
+          const AddTaskForm(),
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              children: tasks.map((e) {
+                return TaskItem(task: e);
+              }).toList(),
+            ),
           )
         ],
       ),
