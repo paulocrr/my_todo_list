@@ -20,7 +20,7 @@ class _TaskItemState extends State<TaskItem> {
             print(value);
           },
         ),
-        title: Text(widget.task.title),
+        title: Text(widget.task.titleInCaps),
         subtitle: Text(widget.task.date),
         trailing: IconButton(
           onPressed: () {},

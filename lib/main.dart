@@ -30,23 +30,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Task> tasks = [
-    Task(
-      id: '1',
-      title: 'Mi primera Tarea',
-      date: '29-04-2023',
-    ),
-    Task(
-      id: '2',
-      title: 'Mi segunda Tarea',
-      date: '29-04-2023',
-    ),
-    Task(
-      id: '3',
-      title: 'Mi tercera Tarea',
-      date: '29-04-2023',
-    ),
-  ];
+  List<Task> tasks = [];
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +40,14 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: [
-          const AddTaskForm(),
+          AddTaskForm(
+            alDarClick: (taskTitle) {
+              final task = Task(id: '1', title: taskTitle, date: '29-04-2023');
+              setState(() {
+                tasks.add(task);
+              });
+            },
+          ),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 8),

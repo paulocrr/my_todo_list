@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AddTaskForm extends StatefulWidget {
-  const AddTaskForm({super.key});
+  final Function(String) alDarClick;
+  const AddTaskForm({required this.alDarClick, super.key});
 
   @override
   State<AddTaskForm> createState() => _AddTaskFormState();
@@ -9,7 +10,7 @@ class AddTaskForm extends StatefulWidget {
 
 class _AddTaskFormState extends State<AddTaskForm> {
   var countCharacters = 0;
-  var taskTile = '';
+  var taskTitle = '';
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +27,17 @@ class _AddTaskFormState extends State<AddTaskForm> {
             ),
             onChanged: (value) {
               setState(() {
-                taskTile = value;
+                taskTitle = value;
                 countCharacters = value.length;
               });
             },
           ),
           ElevatedButton.icon(
-            onPressed: taskTile.isEmpty ? null : () {},
+            onPressed: taskTitle.isEmpty
+                ? null
+                : () {
+                    widget.alDarClick(taskTitle);
+                  },
             icon: const Icon(Icons.add),
             label: const Text('Agregar'),
           ),

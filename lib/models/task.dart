@@ -10,4 +10,6 @@ class Task {
     required this.date,
     this.isDone = false,
   });
+
+  String get titleInCaps => title.toUpperCase();
 }
