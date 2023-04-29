@@ -43,31 +43,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 obscureText: hideText,
                 autofocus: true,
               ),
-              InkWell(
-                splashColor: Colors.red,
-                onTapDown: (_) {
-                  setState(() {
-                    hideText = false;
-                  });
-                },
-                onTapUp: (_) {
-                  setState(() {
-                    hideText = true;
-                  });
-                },
-                child: Container(
-                  child: const Text(
-                    'Mostrar password',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  decoration: BoxDecoration(color: Colors.blue),
-                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  margin: EdgeInsets.all(8),
-                ),
-              ),
-              ElevatedButton(
+              ElevatedButton.icon(
                 onPressed: () {},
-                child: Text('boton'),
+                icon: Icon(Icons.add),
+                label: Text('Agregar'),
               ),
             ],
           )
