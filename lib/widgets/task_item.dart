@@ -35,10 +35,7 @@ class _TaskItemState extends State<TaskItem> {
               removeAction(widget.task);
             }
           },
-          icon: const Icon(
-            Icons.delete,
-            color: Colors.red,
-          ),
+          icon: const Icon(Icons.delete, color: Colors.red),
         ),
       ),
     );
