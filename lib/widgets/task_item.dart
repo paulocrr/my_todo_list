@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:my_todo_list/models/task.dart';
+import 'package:my_todo_list/widgets/my_check_box.dart';
+import 'package:my_todo_list/widgets/my_title_widget.dart';
 
 class TaskItem extends StatefulWidget {
   final Task task;
-  const TaskItem({required this.task, super.key});
+  final Function(Task)? onRemove;
+  const TaskItem({required this.task, this.onRemove, super.key});
 
   @override
   State<TaskItem> createState() => _TaskItemState();
@@ -14,16 +17,24 @@ class _TaskItemState extends State<TaskItem> {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: Checkbox(
-          value: widget.task.isDone,
-          onChanged: (value) {
-            print(value);
+        leading: MyCheckBox(
+          isDone: widget.task.isDone,
+          onChange: (value) {
+            setState(() {
+              widget.task.isDone = value ?? false;
+            });
           },
         ),
-        title: Text(widget.task.titleInCaps),
+        title: MyTitleWidget(widget: widget),
         subtitle: Text(widget.task.date),
         trailing: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            final removeAction = widget.onRemove;
+
+            if (removeAction != null) {
+              removeAction(widget.task);
+            }
+          },
           icon: const Icon(
             Icons.delete,
             color: Colors.red,
