@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 8),
-              children: tasks.map((e) {
+              children: tasks.reversed.map((e) {
                 return TaskItem(
                   task: e,
                   onRemove: (task) {

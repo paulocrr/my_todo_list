@@ -1,4 +1,6 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class AddTaskForm extends StatefulWidget {
   final Function(String) alDarClick;
@@ -9,8 +11,8 @@ class AddTaskForm extends StatefulWidget {
 }
 
 class _AddTaskFormState extends State<AddTaskForm> {
+  final _taskDescriptionController = TextEditingController();
   var countCharacters = 0;
-  var taskTitle = '';
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,7 @@ class _AddTaskFormState extends State<AddTaskForm> {
       child: Column(
         children: [
           TextField(
+            controller: _taskDescriptionController,
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
               hintText: 'Escribe la tarea que quieras',
@@ -27,16 +30,32 @@ class _AddTaskFormState extends State<AddTaskForm> {
             ),
             onChanged: (value) {
               setState(() {
-                taskTitle = value;
                 countCharacters = value.length;
               });
             },
           ),
           ElevatedButton.icon(
-            onPressed: taskTitle.isEmpty
+            onPressed: _taskDescriptionController.text.isEmpty
                 ? null
                 : () {
-                    widget.alDarClick(taskTitle);
+                    widget.alDarClick(_taskDescriptionController.text);
+
+                    _taskDescriptionController.clear();
+                    FocusManager.instance.primaryFocus?.unfocus();
+
+                    setState(() {
+                      countCharacters = 0;
+                    });
+
+                    AwesomeDialog(
+                      context: context,
+                      autoHide: const Duration(seconds: 2),
+                      title: 'Se agrego la tarea',
+                      customHeader: Lottie.asset(
+                        'assets/success-animation.json',
+                        repeat: false,
+                      ),
+                    ).show();
                   },
             icon: const Icon(Icons.add),
             label: const Text('Agregar'),
@@ -44,5 +63,11 @@ class _AddTaskFormState extends State<AddTaskForm> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _taskDescriptionController.dispose();
   }
 }
